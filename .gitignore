@@ -1,0 +1,7 @@
+__pycache__
+env.json
+*.pyc
+output/channels/*
+!output/channels/.gitkeep
+output/users/*
+!output/users/.gitkeep
