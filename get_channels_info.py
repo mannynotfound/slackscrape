@@ -21,7 +21,7 @@ if __name__ == '__main__':
     channels = response['channels']
 
     for idx, channel in enumerate(channels):
-        chan_name = channel['name']
+        chan_name = channel['name'].encode('utf-8')
         print('{} | {} - {} MEMBERS'.format(idx, chan_name, channel['num_members']))
 
         chan_path = ensure_dir('./output/channels/{}'.format(chan_name))
