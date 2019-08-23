@@ -1,18 +1,11 @@
 #!/usr/bin/env python
-from json_utils import load_json, dump_json
+from json_utils import *
 from slackscrape import scrape_slack
 from slackclient import SlackClient
 import operator
 import argparse
-import os
 
 config = load_json('./env.json')
-
-def ensure_dir(directory):
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    return directory
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
