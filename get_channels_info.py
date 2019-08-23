@@ -7,11 +7,7 @@ import argparse
 
 config = load_json('./env.json')
 
-if __name__ == '__main__':
-    ap = argparse.ArgumentParser()
-    ap.add_argument('-u', '--update', help = 'update channels', action="store_true")
-    args = vars(ap.parse_args())
-
+def channel_info(args):
     channel_args = {
         'exclude_archived': 0,
     }
@@ -45,3 +41,13 @@ if __name__ == '__main__':
         except Exception as e:
             print('ERROR DUMPING {}'.format(chan_name))
             print(e)
+
+    return channels
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-u', '--update', help = 'update channels', action="store_true")
+    args = vars(ap.parse_args())
+
+    channel_info(args)
+
