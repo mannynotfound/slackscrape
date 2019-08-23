@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from json_utils import load_json, dump_json
+from json_utils import *
 from slackclient import SlackClient
 import argparse
 
@@ -34,11 +34,13 @@ if __name__ == '__main__':
     ap.add_argument('-o', '--output', help = 'file to save out')
     args = vars(ap.parse_args())
     channel = args['channel']
-    output = args['output']
+    output = args['output'] or 'general'
 
+    channel_path = ensure_dir('./output/channels/{}/messages/'.format(channel))
+    dump_path    = '{}/{}.json'.format(channel_path, output)
 
     try:
-        old_json = load_json(output)
+        old_json = load_json(dump_path)
     except Exception as e:
         old_json = []
         print('No existing messages, starting from scratch...')
@@ -52,4 +54,4 @@ if __name__ == '__main__':
 
     if len(new_messages):
         all_messages = new_messages + old_json
-        dump_json(output, all_messages)
+        dump_json(dump_path, all_messages)
