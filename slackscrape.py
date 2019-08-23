@@ -36,6 +36,7 @@ if __name__ == '__main__':
     channel = args['channel']
     output = args['output']
 
+
     try:
         old_json = load_json(output)
     except Exception as e:
@@ -43,7 +44,7 @@ if __name__ == '__main__':
         print('No existing messages, starting from scratch...')
 
     slack_args = {
-        'channel': config['channel_id'],
+        'channel': channel,
         'oldest': old_json[0]['ts'] if len(old_json) else '',
     }
 
