@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 from json_utils import *
-from slackscrape import scrape_slack
 from slackclient import SlackClient
 import operator
 import argparse
 
 config = load_json('./env.json')
 
-def channel_info(args):
+def all_channels_info(args):
     channel_args = {
         'exclude_archived': 0,
     }
@@ -15,6 +14,12 @@ def channel_info(args):
     sc = SlackClient(config['token'])
     response = sc.api_call('channels.list', **channel_args)
     channels = response['channels']
+
+    return channels
+
+def store_channel_info(args):
+    sc = SlackClient(config['token'])
+    channels = all_channels_info(args)
 
     for idx, channel in enumerate(channels):
         chan_name = channel['name'].encode('utf-8')
@@ -49,5 +54,5 @@ if __name__ == '__main__':
     ap.add_argument('-u', '--update', help = 'update channels', action="store_true")
     args = vars(ap.parse_args())
 
-    channel_info(args)
+    store_channel_info(args)
 

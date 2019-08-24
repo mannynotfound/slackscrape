@@ -28,7 +28,7 @@ def scrape_slack(token, slack_args, filter_func = lambda x: x):
     return results['messages']
 
 def find_channel_by(key, val):
-    channels = channel_info('')
+    channels = all_channels_info('')
     for chan in channels:
         if chan['id'] == channel:
             return chan['name']
