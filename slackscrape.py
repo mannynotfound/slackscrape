@@ -27,11 +27,11 @@ def scrape_slack(token, slack_args, filter_func = lambda x: x):
     print('Done fetching messages. Found {} in total.'.format(len(results['messages'])))
     return results['messages']
 
-def find_channel_by(key, val):
+def find_channel_by(key, val, return_key='name'):
     channels = all_channels_info('')
     for chan in channels:
-        if chan['id'] == channel:
-            return chan['name']
+        if chan[key] == val:
+            return chan[return_key]
 
 if __name__ == '__main__':
     config = load_json('./env.json')
