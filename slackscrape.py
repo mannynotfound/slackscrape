@@ -6,8 +6,8 @@ import argparse
 
 def get_messages(sc, slack_args, messages, filter_func):
     history = sc.api_call("channels.history", **slack_args)
-    last_ts = history['messages'][-1]['ts'] if history['has_more'] else False
-    filtered = list(filter(filter_func, history['messages']))
+    last_ts = history['messages'][-1]['ts'] if ('has_more' in history and history['has_more']) else False
+    filtered = list(filter(filter_func, ('messages' in history and history['messages'])))
     all_messages = messages + filtered
     print('Fetched {} messages. {} Total now.'.format(len(filtered), len(all_messages)))
 
