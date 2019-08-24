@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from json_utils import *
 from slackclient import SlackClient
+from get_channels_info import *
 import argparse
 
 def get_messages(sc, slack_args, messages, filter_func):
@@ -26,6 +27,12 @@ def scrape_slack(token, slack_args, filter_func = lambda x: x):
     print('Done fetching messages. Found {} in total.'.format(len(results['messages'])))
     return results['messages']
 
+def find_channel_by(key, val):
+    channels = channel_info('')
+    for chan in channels:
+        if chan['id'] == channel:
+            return chan['name']
+
 if __name__ == '__main__':
     config = load_json('./env.json')
 
@@ -36,7 +43,10 @@ if __name__ == '__main__':
     channel = args['channel']
     output = args['output'] or 'general'
 
-    channel_path = ensure_dir('./output/channels/{}/messages/'.format(channel))
+    channel_name = find_channel_by('id', channel)
+    print channel_name
+
+    channel_path = ensure_dir('./output/channels/{}/messages/'.format(channel_name))
     dump_path    = '{}/{}.json'.format(channel_path, output)
 
     try:
