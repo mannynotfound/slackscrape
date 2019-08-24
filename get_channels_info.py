@@ -27,9 +27,10 @@ def store_channel_info(args):
 
         chan_path = ensure_dir('./output/channels/{}'.format(chan_name))
         info_path = ensure_dir('./output/channels/{}/info'.format(chan_name))
+        output_path = '{}/{}.json'.format(info_path, chan_name)
 
         try:
-            old_json = load_json('{}/{}.json'.format(info_path, chan_name))
+            old_json = load_json(output_path)
             if not args['update']:
                 print('Already have channel {}, skipping ...'.format(chan_name))
                 continue
@@ -42,7 +43,7 @@ def store_channel_info(args):
 
         channel_info = sc.api_call('channels.info', **slack_args)
         try:
-            dump_json('{}/{}.json'.format(info_path, chan_name), channel_info)
+            dump_json(output_path, channel_info)
         except Exception as e:
             print('ERROR DUMPING {}'.format(chan_name))
             print(e)

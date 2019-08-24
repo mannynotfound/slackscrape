@@ -25,14 +25,14 @@ if __name__ == '__main__':
     sorted_channels = sorted(channels, key=lambda x: x['num_members'], reverse=True)
 
     for idx, channel in enumerate(sorted_channels):
-        chan_name = channel['name']
+        chan_name = channel['name'].encode('utf-8')
         print('{} | {} - {} MEMBERS'.format(idx, chan_name, channel['num_members']))
         chan_path = ensure_dir('./output/channels/{}'.format(chan_name))
-        msg_path = ensure_dir('./output/channels/{}/messages'.format(chan_name))
-        output = './output/channels/{}/messages/{}.json'.format(chan_name, chan_name)
+        msg_path  = ensure_dir('{}/messages'.format(chan_path))
+        dump_path = '{}/{}.json'.format(msg_path, chan_name)
 
         try:
-            old_json = load_json(output)
+            old_json = load_json(dump_path)
             if not args['update']:
                 print('Aready have messages, skipping...')
                 continue
@@ -49,4 +49,4 @@ if __name__ == '__main__':
 
         if len(new_messages):
             all_messages = new_messages + old_json
-            dump_json(output, all_messages)
+            dump_json(dump_path, all_messages)
