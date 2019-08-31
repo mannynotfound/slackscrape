@@ -18,31 +18,31 @@ eg:
 
 eg: `python slackscrape.py -c C193MSB9J
 
-will write channel messages to `general.json` in `output/channels/general/messages/`
+will write channel messages to `general.json` in `output/channels/<channel>/messages/`
 
 ## get channels messages
 
-`python get\_channels\_messages.py -u [optional update existing] -a [optional include archived]`
+`python get_channels_messages.py -u [optional update existing] -a [optional include archived]`
 
-eg: `python get\_channels\_messages.py -u
+eg: `python get_channels_messages.py -u
 
 Will get all channels messages and update with any new messages it finds and write to
 `output/channels/<channel>/messages/<channel>.json`
 
 ## get channels info
 
-`python get\_channels\_info.py -u [optional update existing]`
+`python get_channels_info.py -u [optional update existing]`
 
-eg: `python get\_channels\_info.py -u
+eg: `python get_channels_info.py -u
 
 Will get all channels metadata and write to
 `output/channels/<channel>/info/<channel>.json`
 
 ## get users
 
-`python get\_users.py -u [optional update existing]`
+`python get_users.py -u [optional update existing]`
 
-eg: `python get\_users.py -u
+eg: `python get_users.py -u
 
 Will get all users and write to `output/users/members/<user>.json`
 
